@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTMANWEB</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!--FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <section class="home">
+        <div class="img-antman"><img src="antman.jpg" alt="ant"></div>
+        <div class="barra-de-navegacion">
+            <header>
+                <p class="logo">ANTMAN WEB</p>
+                <div class="toggle"></div>
+                <div class="nav-menu">
+                    <ul>
+                        <li><a href="index.html" styyle='--i:1'class="active11">Home</a></li>
+                        <li><a href="a" styyle='--i:2'class="active"> About</a> </li>
+                        <li><a href="a" styyle='--i:3'class="active"> Contact</a></li>
+                    </ul>
+                </div>
+            </header> 
+        </div>
+        <div class="content">
+                <div class="text-box">
+                    <h2>ANTMAN</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem qui maxime labore vitae sit nobis fugit reprehenderit perferendis nostrum at?</p>
+                    <a href="a">Read More</a>
+                </div>                 
+        </div>
+        <ul class="redes-sociales">
+            <li><a href="https://www.facebook.com/diddier.santiago/"><img src="facebook.png" alt="faceboock" class="face"></a></li>
+            <li><a href="https://www.instagram.com/diddiersantiago/"><img src="instagram.png" alt="instagram" class="insta"></a></li>
+            <li><a href="https://wa.me/message/BD5R7SAAQSZ6E1"><img src="whatsapp.png" alt="whatsapp" class="wasa"></a></li>
+        </ul>
+    </section>
+
+    <script>
+        const menuToggle = document.querySelector('.toggle')
+        const navigation = document.querySelector('.nav-menu')
+        menuToggle.onclick = function(){
+            menuToggle.classList.toggle('active1')
+            navigation.classList.toggle('active1')
+        }
+    </script>
+
+</body>
+</html>
