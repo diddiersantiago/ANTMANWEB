@@ -228,7 +228,7 @@ h2{
     font-size: 1.2em;
     color: rgb(243, 213, 213);
     font-weight: 500;
-    padding: 20px 20px;
+    padding: 10px 10px;
     font-weight: bolder;
 }
 
@@ -267,6 +267,9 @@ h2{
 .content .text-box{
     max-width: 550px;
     position: relative;
+    min-height: 250px;
+    min-width: 300px;
+    font-size: auto;
 }
 
 .redes-sociales{
@@ -294,7 +297,6 @@ h2{
 .redes-sociales li{
     list-style: none;
 }
-
 .redes-sociales a{
     position: relative;
     display: inline-block;
@@ -485,4 +487,113 @@ header ul li .active11{
     transition-duration: .01s;
 }
 
+footer
+{
+    margin-left: 80px;
+}
+
+/**ABOUT_--------------------------------*/
+
+hr
+{
+    height: 15px;
+    background: #800000;
+    border-color: #800000;  
+}
+ .img-diddier
+ {
+     width: 300px;
+     height: 350px;
+     margin: 50px 50px;
+
+ }
+
+.about
+{
+    height: auto;
+    width: auto;
+    color: #e0d2a2;
+    margin:50px 50px ;
+    padding: 10px;
+    background: #55525052;
+    backdrop-filter: blur(3px);
+    border-radius: 30px;
+    float: right;
+    box-shadow:0px 17px 17px 1px  #3a3938;
+    position: relative;
+    max-width: 700px;
+    
+}
+
+.about p
+{
+     font-size: larger;
+     font-weight: 700;
+     padding: 10px;
+}
+
+.temas-domain
+{
+    padding: 10px;
+    background: #5552515b;
+    width: 95%;
+    height: 40px;
+    margin: 20px 30px;
+    border-radius: 30px;
+    backdrop-filter: blur(3px);
+}
+.temas-domain  p
+{
+    color: rgb(253, 229, 12);
+    text-align: center;
+    font-size: 16px;
+    font-size-adjust:active ;
+    font-weight: 800;
+    text-shadow: 
+    0 0 5px #f97575,
+    0 0 10px #ff7676,
+    0 0 20px #ff9191,
+    0 0 40px #fc6f6f,
+    0 0 80px #f85d5d,
+    0 0 90px #f84747,
+    0 0 100px #f84040,
+    0 0 140px #fd3737,
+    0 0 180px 	 #e61e1e;
+}
+
+.lenguajes
+{
+    color: #fbfdf9;
+    display: flex;
+    margin: 20px 50px;
+    gap: 30px;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.html,
+.css,
+.java
+{
+    background: #ffffff1c;
+    width: 300px;
+    height: 400px;
+    text-align: center;
+    border-radius: 60px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #f59999;
+    text-shadow: 
+    0 0 5px #ffb0b0,
+    0 0 10px #f59999,
+    0 0 20px #ff9191,
+    0 0 40px #f86464,
+    0 0 80px #fd5252,
+    0 0 90px #f84747,
+    0 0 100px #f84040,
+    0 0 140px #fd3737,
+    0 0 180px 	 #e61e1e;
+    backdrop-filter: blur(4px);
+    position: relative;
+}
 

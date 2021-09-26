@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANTMANWEB</title>
 
+    <link rel="shortcut icon" href="antman.jpg" type="image/x-icon">
+
     <link rel="stylesheet" href="style.css">
 
     <!--FONTS-->
@@ -17,34 +19,67 @@
 <body>
 
     <section class="home">
-        <div class="img-antman"><img src="antman.jpg" alt="ant"></div>
+        <div class="img-antman"><img src="antman.jpg" alt="ant">
+        </div>
         <div class="barra-de-navegacion">
             <header>
                 <p class="logo">ANTMAN WEB</p>
                 <div class="toggle"></div>
                 <div class="nav-menu">
                     <ul>
-                        <li><a href="index.html" styyle='--i:1'class="active11">Home</a></li>
-                        <li><a href="a" styyle='--i:2'class="active"> About</a> </li>
+                        <li><a href="#active1" styyle='--i:1'class="active11">Home</a></li>
+                        <li><a href="#about" styyle='--i:2'class="active"> About</a> </li>
                         <li><a href="a" styyle='--i:3'class="active"> Contact</a></li>
                     </ul>
                 </div>
             </header> 
         </div>
-        <div class="content">
+        <div class="content" id="acitve1">
                 <div class="text-box">
                     <h2>ANTMAN</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem qui maxime labore vitae sit nobis fugit reprehenderit perferendis nostrum at?</p>
+                    <p>Mi nombre es Diddier Santiago Contreras, soy un joven que esta empezando en el mundo de la programación, se preguntarán, ¿Por que la pagína esta inspirada en Antman?<br><br>
+                    Asi que los invito a seguir bajando por la página. Para que encuentren mas información.</p>
                     <a href="a">Read More</a>
                 </div>                 
         </div>
-        <ul class="redes-sociales">
-            <li><a href="https://www.facebook.com/diddier.santiago/"><img src="facebook.png" alt="faceboock" class="face"></a></li>
-            <li><a href="https://www.instagram.com/diddiersantiago/"><img src="instagram.png" alt="instagram" class="insta"></a></li>
-            <li><a href="https://wa.me/message/BD5R7SAAQSZ6E1"><img src="whatsapp.png" alt="whatsapp" class="wasa"></a></li>
-        </ul>
+        
     </section>
 
+    <hr>
+
+    <section class="about" id="about1">
+        <h2>About For Me</h2>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas et veritatis pariatur asperiores alias corrupti tempore quaerat libero aliquid quos doloribus, mollitia maiores nulla at modi! Accusamus voluptatum beatae deserunt, officiis tenetur impedit! Officia recusandae veritatis rerum perspiciatis placeat nesciunt consequatur debitis deserunt. Laboriosam fugiat, illo voluptates velit possimus quam odit molestiae tenetur deleniti voluptatum architecto enim perferendis magnam ullam magni itaque quaerat natus vel. Explicabo voluptatem hic rerum maiores!
+        </p>
+    </section>
+
+    <div class="img-diddier">
+        <img src="img-diddier" alt="img-diddier" srcset="">
+    </div>
+
+    <div class="temas-domain">
+        <p>
+            LENGUAJES QUE UTLIZO
+        </p>
+    </div>
+
+    <section>
+        <div class="lenguajes">
+           <div class="html">
+            <h3>HTML</h3>
+           </div> 
+        
+
+            <div class="css">
+                <h3>CSS</h3>
+            </div>
+
+            <div class="java">
+                <h3>Java</h3>
+            </div>
+        </div>    
+    </section>
     <script>
         const menuToggle = document.querySelector('.toggle')
         const navigation = document.querySelector('.nav-menu')
@@ -54,5 +89,12 @@
         }
     </script>
 
+    <footer>
+        <ul class="redes-sociales">
+            <li><a href="https://www.facebook.com/diddier.santiago/"><img src="facebook.png" alt="faceboock" class="face"></a></li>
+            <li><a href="https://www.instagram.com/diddiersantiago/"><img src="instagram.png" alt="instagram" class="insta"></a></li>
+            <li><a href="https://wa.me/message/BD5R7SAAQSZ6E1"><img src="whatsapp.png" alt="whatsapp" class="wasa"></a></li>
+        </ul>
+    </footer>
 </body>
 </html>
