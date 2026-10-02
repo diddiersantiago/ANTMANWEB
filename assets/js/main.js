@@ -66,6 +66,108 @@
     walk(el);
   });
 
+  /* ---------- Átomo del stack: se construye a partir de las tarjetas ---------- */
+  (function initAtom() {
+    const atom = $('.atom');
+    const list = $('.atom__electrons');
+    const cards = $$('.tcard');
+    if (!atom || !list || !cards.length) return;
+
+    const PER_CAT = 4;                       // tecnologías por categoría que orbitan
+    const ORBITS = [0, 60, -60].map(d => d * Math.PI / 180);
+    const A = 270, B = 92;                   // semiejes de las órbitas (viewBox 600)
+    const short = t => t.replace(/\s·.*$/, '').replace(/\s(Cloud\s)?API$/, '').trim();
+
+    const cats = cards.map((card, i) => ({
+      card,
+      name: ($('header .mono', card)?.textContent || '').replace(/^\d+\s·\s/, '').trim(),
+      color: card.style.getPropertyValue('--c').trim() || '#ff2a3d',
+      total: $$('.chips li', card).length,
+      techs: $$('.chips li', card).slice(0, PER_CAT).map(li => short(li.textContent))
+    }));
+
+    // repartir las tecnologías entre las 3 órbitas
+    const electrons = [];
+    cats.forEach((c, ci) => c.techs.forEach(t => electrons.push({ t, ci })));
+    const perOrbit = [[], [], []];
+    electrons.forEach((e, i) => perOrbit[i % 3].push(e));
+    perOrbit.forEach((arr, o) => arr.forEach((e, k) => {
+      e.orbit = o;
+      e.phase = (k / arr.length) * Math.PI * 2 + o * .7;
+      e.speed = [.16, -.12, .1][o];
+      const li = document.createElement('li');
+      li.className = 'atom__e';
+      li.innerHTML = '<b></b>';
+      li.firstChild.textContent = e.t;
+      list.appendChild(li);
+      e.el = li;
+    }));
+
+    const nucleus = { num: $('.atom__num'), cat: $('.atom__cat'), count: $('.atom__count') };
+    const totalTechs = cats.reduce((n, c) => n + c.total, 0);
+    let active = -1, auto = true, autoTimer = null;
+
+    function setCat(i) {
+      active = i;
+      atom.classList.toggle('has-focus', i >= 0);
+      cats.forEach((c, ci) => c.card.classList.toggle('is-lit', ci === i));
+      electrons.forEach(e => e.el.classList.toggle('is-on', e.ci === i));
+      const c = cats[i];
+      atom.style.setProperty('--atom-c', c ? c.color : 'var(--red)');
+      nucleus.num.textContent = c ? String(i + 1).padStart(2, '0') : '</>';
+      nucleus.cat.textContent = c ? c.name : 'Stack';
+      nucleus.count.textContent = c ? `${c.total} tecnologías` : `${totalTechs} tecnologías`;
+      nucleus.cat.classList.remove('is-swap'); void nucleus.cat.offsetWidth; nucleus.cat.classList.add('is-swap');
+    }
+    function startAuto() {
+      clearInterval(autoTimer);
+      auto = true;
+      autoTimer = setInterval(() => { if (auto) setCat((active + 1) % cats.length); }, 2600);
+    }
+    setCat(-1);
+    const hint = $('.atom__hint');
+    if (hint && !finePointer) hint.textContent = 'Toca una categoría para ver su órbita ↓';
+
+    cats.forEach((c, i) => {
+      c.card.addEventListener('pointerenter', () => { auto = false; clearInterval(autoTimer); setCat(i); });
+      c.card.addEventListener('pointerleave', startAuto);
+      c.card.addEventListener('click', () => { auto = false; clearInterval(autoTimer); setCat(i); });
+    });
+
+    // bucle de órbita: solo mientras el átomo está en pantalla
+    let visible = false, t = 0, last = performance.now(), raf = 0;
+    function place() {
+      const S = atom.clientWidth / (atom.clientWidth < 460 ? 700 : 640);   // margen para que las etiquetas no se corten
+      electrons.forEach(e => {
+        const a = e.phase + t * e.speed;
+        const px = A * Math.cos(a), py = B * Math.sin(a);
+        const r = ORBITS[e.orbit];
+        const x = (px * Math.cos(r) - py * Math.sin(r)) * S;
+        const y = (px * Math.sin(r) + py * Math.cos(r)) * S;
+        const depth = Math.sin(a);                  // >0 delante del núcleo
+        const sc = .82 + (depth + 1) * .14;
+        e.el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${sc.toFixed(3)})`;
+        e.el.style.zIndex = depth > 0 ? 20 : 5;
+        e.el.style.opacity = (.55 + (depth + 1) * .225).toFixed(2);
+      });
+    }
+    function loop(now) {
+      if (!visible) return;
+      t += Math.min((now - last) / 1000, .05);
+      last = now;
+      place();
+      raf = requestAnimationFrame(loop);
+    }
+    place();
+    if (reduced) return;
+    new IntersectionObserver(([en]) => {
+      visible = en.isIntersecting;
+      if (visible) { last = performance.now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); startAuto(); }
+      else clearInterval(autoTimer);
+    }).observe(atom);
+    window.addEventListener('resize', place);
+  })();
+
   /* ---------- Vista previa en vídeo de los proyectos ---------- */
   $$('.pcard__art--media').forEach(art => {
     const video = $('video', art);

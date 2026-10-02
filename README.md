@@ -29,6 +29,8 @@ assets/video/         → vistas previas de proyectos (WebM + MP4)
 
 Todo el texto está en `index.html`. Para añadir un proyecto, duplica un bloque `<article class="pcard">` en la sección de proyectos y cambia el título, la descripción, los datos, los tags, el enlace, los colores (`--a` y `--b`) y la imagen/vídeo. Los proyectos privados usan `<div class="pcard__link">` en lugar de `<a>`.
 
+El **átomo del stack** se genera solo a partir de las tarjetas de la sección Stack: añade o cambia un `<li>` en sus `chips` (las 4 primeras de cada tarjeta orbitan) y el color de la categoría con `--c`.
+
 ## Verla en local
 
 Es una web estática: abre `index.html` o sirve la carpeta, por ejemplo:

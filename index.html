@@ -229,50 +229,61 @@
       </div>
 
       <div class="stack__grid">
-        <div class="atom" aria-hidden="true">
-          <div class="atom__nucleus"><span>&lt;/&gt;</span></div>
-          <div class="atom__orbit atom__orbit--a"><div class="atom__e"><b>React</b></div><div class="atom__e atom__e--2"><b>Next.js</b></div></div>
-          <div class="atom__orbit atom__orbit--b"><div class="atom__e"><b>Python</b></div><div class="atom__e atom__e--2"><b>Claude</b></div></div>
-          <div class="atom__orbit atom__orbit--c"><div class="atom__e"><b>Three.js</b></div><div class="atom__e atom__e--2"><b>Node</b></div></div>
+        <div class="atom-wrap">
+          <!-- El átomo se genera solo a partir de las tarjetas del stack (assets/js/main.js → initAtom) -->
+          <div class="atom" aria-hidden="true">
+            <svg class="atom__rings" viewBox="-300 -300 600 600">
+              <ellipse rx="270" ry="92" transform="rotate(0)"/>
+              <ellipse rx="270" ry="92" transform="rotate(60)"/>
+              <ellipse rx="270" ry="92" transform="rotate(-60)"/>
+            </svg>
+            <div class="atom__nucleus">
+              <span class="atom__num mono">00</span>
+              <span class="atom__cat">Stack</span>
+              <span class="atom__count mono">0 tecnologías</span>
+            </div>
+            <ul class="atom__electrons"></ul>
+          </div>
+          <p class="atom__hint mono">Pasa por una categoría para ver su órbita →</p>
         </div>
 
         <div class="stack__cards">
-          <article class="tcard">
+          <article class="tcard" style="--c:#3df2ff;">
             <header><span class="mono">01 · Frontend</span><span class="tcard__ico">◐</span></header>
             <h3>Interfaces que se sienten vivas</h3>
             <ul class="chips">
               <li>React 19</li><li>Next.js</li><li>TypeScript</li><li>Vite</li><li>Tailwind CSS</li><li>HTML / CSS / JS</li>
             </ul>
           </article>
-          <article class="tcard">
+          <article class="tcard" style="--c:#ffb84d;">
             <header><span class="mono">02 · Backend &amp; datos</span><span class="tcard__ico">◑</span></header>
             <h3>Lógica que aguanta producción</h3>
             <ul class="chips">
               <li>Python</li><li>FastAPI</li><li>Node.js</li><li>Express</li><li>PostgreSQL</li><li>SQLAlchemy</li><li>Java</li>
             </ul>
           </article>
-          <article class="tcard">
+          <article class="tcard" style="--c:#3dd68c;">
             <header><span class="mono">03 · IA &amp; automatización</span><span class="tcard__ico">◒</span></header>
             <h3>Agentes que venden y agendan</h3>
             <ul class="chips">
               <li>Claude API · tool use</li><li>Claude Agent SDK</li><li>WhatsApp Cloud API</li><li>Google Calendar API</li><li>Webhooks</li>
             </ul>
           </article>
-          <article class="tcard">
+          <article class="tcard" style="--c:#ff2a3d;">
             <header><span class="mono">04 · 3D &amp; motion</span><span class="tcard__ico">◓</span></header>
             <h3>Animación con intención</h3>
             <ul class="chips">
               <li>Three.js</li><li>React Three Fiber</li><li>Blender + Python</li><li>GSAP</li><li>Lenis</li><li>WebGL / GLSL</li>
             </ul>
           </article>
-          <article class="tcard">
+          <article class="tcard" style="--c:#b48cff;">
             <header><span class="mono">05 · Calidad</span><span class="tcard__ico">◐</span></header>
             <h3>Ingeniería detrás del brillo</h3>
             <ul class="chips">
               <li>pytest</li><li>Playwright</li><li>Puppeteer</li><li>axe-core</li><li>SEO · JSON-LD</li>
             </ul>
           </article>
-          <article class="tcard">
+          <article class="tcard" style="--c:#7aa2ff;">
             <header><span class="mono">06 · Deploy &amp; taller</span><span class="tcard__ico">◑</span></header>
             <h3>Del laboratorio a producción</h3>
             <ul class="chips">

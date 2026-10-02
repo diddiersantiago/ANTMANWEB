@@ -550,51 +550,62 @@ section[id] { scroll-margin-top: 80px; }
   display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2rem, 6vw, 6rem); align-items: center;
 }
 
+.atom-wrap { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
 .atom {
   position: relative;
-  aspect-ratio: 1; width: 100%; max-width: 520px; margin: 0 auto;
-  transform-style: preserve-3d;
-  perspective: 1200px;
+  aspect-ratio: 1; width: 100%; max-width: 540px; margin: 0 auto;
+  --atom-c: var(--red);
 }
+.atom__rings { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.atom__rings ellipse {
+  fill: none; stroke: rgba(61,242,255,.22); stroke-width: 1; stroke-dasharray: 2 6;
+  transition: stroke .6s;
+}
+.atom__rings ellipse:nth-child(2) { stroke: rgba(255,42,61,.25); }
+.atom__rings ellipse:nth-child(3) { stroke: rgba(255,184,77,.22); }
 .atom__nucleus {
-  position: absolute; left: 50%; top: 50%;
-  width: 26%; aspect-ratio: 1; translate: -50% -50%;
+  position: absolute; left: 50%; top: 50%; z-index: 30;
+  width: 31%; aspect-ratio: 1; translate: -50% -50%;
   border-radius: 50%;
-  display: grid; place-items: center;
-  background: radial-gradient(circle at 35% 30%, #ff6b78, var(--red) 40%, #5a0812 100%);
-  box-shadow: 0 0 60px rgba(255,42,61,.6), 0 0 140px rgba(255,42,61,.3), inset -10px -14px 30px rgba(0,0,0,.4);
-  font-family: var(--f-mono); font-weight: 500; font-size: clamp(1rem, 2vw, 1.5rem);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .15rem;
+  text-align: center; padding: .5rem;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--atom-c) 55%, #fff), var(--atom-c) 42%, color-mix(in srgb, var(--atom-c) 30%, #000) 100%);
+  box-shadow: 0 0 60px color-mix(in srgb, var(--atom-c) 60%, transparent), 0 0 140px color-mix(in srgb, var(--atom-c) 30%, transparent), inset -10px -14px 30px rgba(0,0,0,.4);
+  transition: background .6s, box-shadow .6s;
   animation: pulse 3s ease-in-out infinite;
 }
-.atom__orbit {
-  position: absolute; inset: 4%;
-  border-radius: 50%;
-  border: 1px solid rgba(61,242,255,.28);
-  transform-style: preserve-3d;
-}
-.atom__orbit--a { transform: rotateX(70deg) rotateY(0deg); animation: orbitA 14s linear infinite; }
-.atom__orbit--b { transform: rotateX(70deg) rotateY(60deg); animation: orbitB 18s linear infinite; border-color: rgba(255,42,61,.3); }
-.atom__orbit--c { transform: rotateX(70deg) rotateY(-60deg); animation: orbitC 22s linear infinite; border-color: rgba(255,184,77,.28); }
-@keyframes orbitA { from { transform: rotateY(0deg) rotateX(72deg) rotateZ(0deg); } to { transform: rotateY(0deg) rotateX(72deg) rotateZ(360deg); } }
-@keyframes orbitB { from { transform: rotateY(60deg) rotateX(72deg) rotateZ(0deg); } to { transform: rotateY(60deg) rotateX(72deg) rotateZ(360deg); } }
-@keyframes orbitC { from { transform: rotateY(-60deg) rotateX(72deg) rotateZ(0deg); } to { transform: rotateY(-60deg) rotateX(72deg) rotateZ(360deg); } }
+.atom__num { font-size: .6rem; opacity: .75; }
+.atom__cat { font-family: var(--f-display); font-weight: 800; font-size: clamp(.68rem, 1.25vw, .98rem); line-height: 1.08; letter-spacing: -.01em; max-width: 92%; text-shadow: 0 1px 8px rgba(0,0,0,.35); }
+.atom__count { font-size: .52rem; opacity: .75; }
+.atom__cat.is-swap { animation: catSwap .5s var(--ease); }
+@keyframes catSwap { from { opacity: 0; transform: translateY(8px) scale(.9); filter: blur(4px); } }
+.atom__electrons { position: absolute; inset: 0; }
 .atom__e {
-  position: absolute; left: 50%; top: 0;
-  transform-style: preserve-3d;
-  translate: -50% -50%;
+  position: absolute; left: 50%; top: 50%;
+  will-change: transform;
+  pointer-events: none;
 }
-.atom__e--2 { top: 100%; }
 .atom__e b {
-  display: block;
-  padding: .4rem .8rem;
+  display: block; translate: -50% -50%;
+  padding: .32rem .7rem;
   border-radius: 100px;
-  background: rgba(13,11,18,.9);
-  border: 1px solid rgba(242,237,228,.25);
-  font-family: var(--f-mono); font-weight: 500; font-size: .72rem; letter-spacing: .05em;
+  background: rgba(13,11,18,.92);
+  border: 1px solid rgba(242,237,228,.22);
+  font-family: var(--f-mono); font-weight: 500; font-size: clamp(.56rem, .9vw, .7rem); letter-spacing: .03em;
   white-space: nowrap;
-  transform: rotateX(-72deg);
-  box-shadow: 0 0 20px rgba(61,242,255,.25);
+  color: var(--ink-dim);
+  transition: color .5s, border-color .5s, background .5s, box-shadow .5s, opacity .5s;
 }
+.atom__e.is-on b {
+  color: #fff; border-color: var(--atom-c);
+  background: color-mix(in srgb, var(--atom-c) 28%, rgba(13,11,18,.92));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--atom-c) 70%, transparent);
+}
+.atom.has-focus .atom__e:not(.is-on) b { opacity: .42; }
+.atom__hint { color: var(--ink-dim); font-size: .6rem; text-align: center; }
+.tcard.is-lit { border-color: color-mix(in srgb, var(--c, var(--red)) 60%, transparent); }
+.tcard.is-lit::before { opacity: .6; }
+.tcard.is-lit .tcard__ico { transform: rotate(180deg); }
 
 .stack__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .tcard {
@@ -609,14 +620,14 @@ section[id] { scroll-margin-top: 80px; }
 }
 .tcard::before {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(400px circle at var(--mx) var(--my), rgba(255,42,61,.18), transparent 45%);
+  background: radial-gradient(400px circle at var(--mx) var(--my), color-mix(in srgb, var(--c, var(--red)) 22%, transparent), transparent 45%);
   opacity: 0; transition: opacity .4s;
 }
-.tcard:hover { border-color: rgba(255,42,61,.45); }
+.tcard:hover { border-color: color-mix(in srgb, var(--c, var(--red)) 55%, transparent); }
 .tcard:hover::before { opacity: 1; }
 .tcard header { display: flex; justify-content: space-between; color: var(--ink-dim); margin-bottom: 2.6rem; }
 .tcard header .mono { font-size: .62rem; }
-.tcard__ico { color: var(--red); font-size: 1.2rem; line-height: 1; transition: transform .8s var(--ease); }
+.tcard__ico { color: var(--c, var(--red)); font-size: 1.2rem; line-height: 1; transition: transform .8s var(--ease); }
 .tcard:hover .tcard__ico { transform: rotate(180deg); }
 .tcard h3 { font-family: var(--f-display); font-weight: 700; font-size: 1.35rem; line-height: 1.15; margin-bottom: 1.2rem; }
 
