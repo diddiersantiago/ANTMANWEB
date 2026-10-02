@@ -66,6 +66,24 @@
     walk(el);
   });
 
+  /* ---------- Vista previa en vídeo de los proyectos ---------- */
+  $$('.pcard__art--media').forEach(art => {
+    const video = $('video', art);
+    if (!video) return;
+    const play = () => {
+      const p = video.play();
+      if (p && p.then) p.then(() => art.classList.add('is-playing')).catch(() => {});
+    };
+    const stop = () => { video.pause(); art.classList.remove('is-playing'); };
+    if (finePointer) {
+      const card = art.closest('.pcard__link');
+      card.addEventListener('pointerenter', play);
+      card.addEventListener('pointerleave', stop);
+    } else if (!reduced && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => (e.isIntersecting ? play() : stop()), { threshold: .6 }).observe(art);
+    }
+  });
+
   /* ---------- Sin GSAP: fallback limpio ---------- */
   if (!hasGsap) {
     const l = $('.loader'); if (l) l.remove();
@@ -498,6 +516,19 @@
     $$('.pcard').forEach(card => {
       gsap.from(card, { y: 80, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: card, start: 'top 88%' } });
     });
+  });
+
+  /* =========================================================
+     LABORATORIO
+     ========================================================= */
+  gsap.from('.lab__head > *', {
+    y: 50, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: .1,
+    scrollTrigger: { trigger: '.lab__head', start: 'top 85%' }
+  });
+  gsap.set('.lcard', { y: 90, opacity: 0, rotateX: -18, transformOrigin: '50% 100%' });
+  ScrollTrigger.batch('.lcard', {
+    start: 'top 92%', once: true,
+    onEnter: batch => gsap.to(batch, { y: 0, opacity: 1, rotateX: 0, duration: 1.1, ease: 'power4.out', stagger: .1, clearProps: 'transform' })
   });
 
   /* =========================================================
