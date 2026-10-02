@@ -1,100 +1,456 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" class="no-js">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANTMANWEB</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diddier Santiago — Desarrollador Web · ANTMANWEB</title>
+  <meta name="description" content="Portafolio de Diddier Santiago Contreras: desarrollador web. Proyectos, herramientas y tecnologías — un viaje al Reino Cuántico del código.">
+  <meta name="theme-color" content="#060509">
+  <meta property="og:title" content="Diddier Santiago — ANTMANWEB">
+  <meta property="og:description" content="Las grandes ideas empiezan siendo diminutas. Portafolio de desarrollo web.">
+  <meta property="og:image" content="assets/img/antman.png">
+  <link rel="icon" href="assets/img/favicon.png" type="image/png">
 
-    <link rel="shortcut icon" href="antman.jpg" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
-
-    <!--FONTS-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
 
-    <section class="home">
-        <div class="img-antman"><img src="antman.jpg" alt="ant">
-        </div>
-        <div class="barra-de-navegacion">
-            <header>
-                <p class="logo">ANTMAN WEB</p>
-                <div class="toggle"></div>
-                <div class="nav-menu">
-                    <ul>
-                        <li><a href="#active1" styyle='--i:1'class="active11">Home</a></li>
-                        <li><a href="#about" styyle='--i:2'class="active"> About</a> </li>
-                        <li><a href="a" styyle='--i:3'class="active"> Contact</a></li>
-                    </ul>
-                </div>
-            </header> 
-        </div>
-        <div class="content" id="acitve1">
-                <div class="text-box">
-                    <h2>ANTMAN</h2>
-                    <p>Mi nombre es Diddier Santiago Contreras, soy un joven que esta empezando en el mundo de la programación, se preguntarán, ¿Por que la pagína esta inspirada en Antman?<br><br>
-                    Asi que los invito a seguir bajando por la página. Para que encuentren mas información.</p>
-                    <a href="a">Read More</a>
-                </div>                 
-        </div>
-        
-    </section>
-
-    <hr>
-
-    <section class="about" id="about1">
-        <h2>About For Me</h2>
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas et veritatis pariatur asperiores alias corrupti tempore quaerat libero aliquid quos doloribus, mollitia maiores nulla at modi! Accusamus voluptatum beatae deserunt, officiis tenetur impedit! Officia recusandae veritatis rerum perspiciatis placeat nesciunt consequatur debitis deserunt. Laboriosam fugiat, illo voluptates velit possimus quam odit molestiae tenetur deleniti voluptatum architecto enim perferendis magnam ullam magni itaque quaerat natus vel. Explicabo voluptatem hic rerum maiores!
-        </p>
-    </section>
-
-    <div class="img-diddier">
-        <img src="img-diddier" alt="img-diddier" srcset="">
+  <!-- ============ LOADER ============ -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__panel loader__panel--top"></div>
+    <div class="loader__panel loader__panel--bottom"></div>
+    <div class="loader__inner">
+      <p class="loader__label mono">Calibrando partículas Pym</p>
+      <div class="loader__count"><span class="loader__num">000</span><span class="loader__pct">%</span></div>
+      <div class="loader__bar"><span></span></div>
+      <p class="loader__hint mono">Reduciendo escala · 1 : 1 → 1 : 10<sup>-35</sup></p>
     </div>
+  </div>
 
-    <div class="temas-domain">
-        <p>
-            LENGUAJES QUE UTLIZO
-        </p>
+  <!-- ============ FX LAYERS ============ -->
+  <canvas class="quantum" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><div class="cursor__ring"><span class="cursor__label"></span></div><div class="cursor__dot"></div></div>
+
+  <!-- ============ HUD ============ -->
+  <div class="hud" aria-hidden="true">
+    <div class="hud__scale mono">
+      <span class="hud__k">Escala</span>
+      <span class="hud__v" data-hud-scale>1 m</span>
     </div>
+    <div class="hud__progress"><span></span></div>
+    <div class="hud__section mono"><span data-hud-index>00</span> / 06</div>
+  </div>
 
-    <section>
-        <div class="lenguajes">
-           <div class="html">
-            <h3>HTML</h3>
-           </div> 
-        
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <a href="#top" class="nav__logo" data-cursor="Inicio" aria-label="Inicio">
+      <span class="nav__logo-mark">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 28 L20 10 L28 28 M15.5 21 H24.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="nav__logo-text">ANTMAN<b>WEB</b></span>
+    </a>
+    <nav class="nav__links" aria-label="Principal">
+      <a href="#about" data-scramble><span class="mono">01</span>Sobre mí</a>
+      <a href="#stack" data-scramble><span class="mono">02</span>Stack</a>
+      <a href="#projects" data-scramble><span class="mono">03</span>Proyectos</a>
+      <a href="#journey" data-scramble><span class="mono">04</span>Trayecto</a>
+      <a href="#contact" data-scramble><span class="mono">05</span>Contacto</a>
+    </nav>
+    <div class="nav__status mono"><i></i>Disponible para proyectos</div>
+    <button class="nav__burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+  </header>
 
-            <div class="css">
-                <h3>CSS</h3>
-            </div>
+  <div class="menu" aria-hidden="true">
+    <div class="menu__bg"></div>
+    <nav class="menu__links" aria-label="Móvil">
+      <a href="#about"><span class="mono">01</span>Sobre mí</a>
+      <a href="#stack"><span class="mono">02</span>Stack</a>
+      <a href="#projects"><span class="mono">03</span>Proyectos</a>
+      <a href="#journey"><span class="mono">04</span>Trayecto</a>
+      <a href="#contact"><span class="mono">05</span>Contacto</a>
+    </nav>
+    <p class="menu__foot mono">Diddier Santiago · ANTMANWEB</p>
+  </div>
 
-            <div class="java">
-                <h3>Java</h3>
-            </div>
-        </div>    
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" data-section="00" data-scale="1 m">
+      <div class="hero__meta mono">
+        <span>[ Portafolio — Edición 2026 ]</span>
+        <span class="hero__coords">Coordenadas · Reino Cuántico</span>
+      </div>
+
+      <h1 class="hero__title" aria-label="Diddier Santiago">
+        <span class="hero__line"><span class="split" data-split>DIDDIER</span></span>
+        <span class="hero__line hero__line--outline"><span class="split" data-split>SANTIAGO</span></span>
+      </h1>
+
+      <div class="hero__mascot" data-cursor="Encoger">
+        <div class="hero__halo"></div>
+        <div class="hero__orbit hero__orbit--1"></div>
+        <div class="hero__orbit hero__orbit--2"></div>
+        <img src="assets/img/antman.webp" alt="Ant-Man, mascota de ANTMANWEB" width="565" height="600">
+      </div>
+
+      <div class="hero__bottom">
+        <p class="hero__lead">
+          <span class="reveal-line">Desarrollador web que construye experiencias</span>
+          <span class="reveal-line">desde lo <em>microscópico</em> hasta lo <em class="red">épico</em>.</span>
+        </p>
+        <div class="hero__actions">
+          <a href="#projects" class="btn btn--primary magnetic" data-cursor="Ver"><span>Ver proyectos</span><i>↘</i></a>
+          <a href="#contact" class="btn btn--ghost magnetic" data-cursor="Hola"><span>Hablemos</span></a>
+        </div>
+      </div>
+
+      <div class="hero__scroll mono"><span>Scroll para encoger</span><i></i></div>
     </section>
-    <script>
-        const menuToggle = document.querySelector('.toggle')
-        const navigation = document.querySelector('.nav-menu')
-        menuToggle.onclick = function(){
-            menuToggle.classList.toggle('active1')
-            navigation.classList.toggle('active1')
-        }
-    </script>
 
-    <footer>
-        <ul class="redes-sociales">
-            <li><a href="https://www.facebook.com/diddier.santiago/"><img src="facebook.png" alt="faceboock" class="face"></a></li>
-            <li><a href="https://www.instagram.com/diddiersantiago/"><img src="instagram.png" alt="instagram" class="insta"></a></li>
-            <li><a href="https://wa.me/message/BD5R7SAAQSZ6E1"><img src="whatsapp.png" alt="whatsapp" class="wasa"></a></li>
-        </ul>
-    </footer>
+    <!-- ============ MANIFESTO ============ -->
+    <section class="manifesto" data-section="00" data-scale="1 cm">
+      <p class="eyebrow mono">// ¿Por qué Ant-Man?</p>
+      <p class="manifesto__text" data-words>
+        Ant-Man me enseñó que el tamaño no define el impacto. Una línea de código, un píxel, una idea diminuta
+        pueden crecer hasta convertirse en algo <span class="hl">gigante</span>. Por eso esta web está inspirada en él:
+        cada proyecto empieza en el <span class="hl hl--cyan">Reino Cuántico</span> y termina a escala real.
+      </p>
+    </section>
+
+    <!-- ============ SCALE DIVE ============ -->
+    <section class="dive" data-section="00" aria-label="Viaje de escala">
+      <div class="dive__stage">
+        <div class="dive__rings" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="dive__layer" data-dive-scale="1 m">
+          <span class="dive__unit mono">10⁰ m</span>
+          <h3>Un humano</h3>
+          <p>con ganas de aprender</p>
+        </div>
+        <div class="dive__layer" data-dive-scale="1 mm">
+          <span class="dive__unit mono">10⁻³ m</span>
+          <h3>Una hormiga</h3>
+          <p>persistente y en equipo</p>
+        </div>
+        <div class="dive__layer" data-dive-scale="1 µm">
+          <span class="dive__unit mono">10⁻⁶ m</span>
+          <h3>Un píxel</h3>
+          <p>donde se cuida cada detalle</p>
+        </div>
+        <div class="dive__layer" data-dive-scale="1 nm">
+          <span class="dive__unit mono">10⁻⁹ m</span>
+          <h3>Una línea de código</h3>
+          <p>&lt;que lo cambia todo /&gt;</p>
+        </div>
+        <div class="dive__layer dive__layer--final" data-dive-scale="10⁻³⁵ m">
+          <span class="dive__unit mono">Escala de Planck</span>
+          <h3>Reino<br>Cuántico</h3>
+          <p>donde nacen las ideas</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="about" id="about" data-section="01" data-scale="1 : 1">
+      <div class="section-head">
+        <span class="section-head__num mono">01</span>
+        <h2 class="section-head__title"><span class="split" data-split>Sobre mí</span></h2>
+        <span class="section-head__line"></span>
+      </div>
+
+      <div class="about__grid">
+        <figure class="about__photo" data-cursor="Hola 👋">
+          <div class="about__photo-frame">
+            <picture>
+              <source srcset="assets/img/diddier.webp" type="image/webp">
+              <img src="assets/img/diddier.jpg" alt="Retrato de Diddier Santiago Contreras" width="900" height="1200" loading="lazy">
+            </picture>
+            <div class="about__photo-scan"></div>
+          </div>
+          <figcaption class="mono">
+            <span>SUJETO: D. SANTIAGO C.</span>
+            <span>ESTADO: <b>COMPILANDO SUEÑOS</b></span>
+          </figcaption>
+          <div class="about__badge">
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <defs><path id="circlePath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+              <text><textPath href="#circlePath">CÓDIGO · DISEÑO · CURIOSIDAD · CÓDIGO · DISEÑO · CURIOSIDAD ·</textPath></text>
+            </svg>
+            <span>✦</span>
+          </div>
+        </figure>
+
+        <div class="about__content">
+          <p class="about__big">
+            Soy <strong>Diddier Santiago Contreras</strong>, desarrollador web que convierte ideas pequeñas en experiencias que se sienten enormes.
+          </p>
+          <p class="about__text">
+            Empecé en el mundo de la programación con mucha curiosidad y cero miedo a romper cosas. Hoy construyo interfaces
+            con HTML, CSS y JavaScript, exploro la lógica y la programación orientada a objetos con Java, y me obsesiona
+            que cada animación, cada transición y cada píxel tenga una razón de ser.
+          </p>
+          <p class="about__text">
+            Creo en aprender construyendo: cada proyecto es un experimento, y cada error es una partícula más
+            en el camino hacia algo grande.
+          </p>
+
+          <div class="stats">
+            <div class="stat">
+              <span class="stat__num" data-count="10">0</span><span class="stat__suffix">+</span>
+              <span class="stat__label mono">Tecnologías en mi caja</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num" data-count="100">0</span><span class="stat__suffix">%</span>
+              <span class="stat__label mono">Responsive & animado</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num">∞</span>
+              <span class="stat__label mono">Curiosidad por aprender</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STACK ============ -->
+    <section class="stack" id="stack" data-section="02" data-scale="1 : 1">
+      <div class="section-head">
+        <span class="section-head__num mono">02</span>
+        <h2 class="section-head__title"><span class="split" data-split>Mi stack</span></h2>
+        <span class="section-head__line"></span>
+      </div>
+
+      <div class="stack__grid">
+        <div class="atom" aria-hidden="true">
+          <div class="atom__nucleus"><span>&lt;/&gt;</span></div>
+          <div class="atom__orbit atom__orbit--a"><div class="atom__e"><b>HTML</b></div><div class="atom__e atom__e--2"><b>CSS</b></div></div>
+          <div class="atom__orbit atom__orbit--b"><div class="atom__e"><b>JS</b></div><div class="atom__e atom__e--2"><b>Java</b></div></div>
+          <div class="atom__orbit atom__orbit--c"><div class="atom__e"><b>Git</b></div><div class="atom__e atom__e--2"><b>GSAP</b></div></div>
+        </div>
+
+        <div class="stack__cards">
+          <article class="tcard" data-cursor="">
+            <header><span class="mono">01 · Frontend</span><span class="tcard__ico">◐</span></header>
+            <h3>Interfaces que se sienten vivas</h3>
+            <ul class="chips">
+              <li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>Responsive Design</li><li>Flexbox &amp; Grid</li>
+            </ul>
+          </article>
+          <article class="tcard">
+            <header><span class="mono">02 · Lógica &amp; Backend</span><span class="tcard__ico">◑</span></header>
+            <h3>Pensamiento estructurado</h3>
+            <ul class="chips">
+              <li>Java</li><li>POO</li><li>Algoritmos</li><li>Estructuras de datos</li>
+            </ul>
+          </article>
+          <article class="tcard">
+            <header><span class="mono">03 · Motion &amp; 3D</span><span class="tcard__ico">◒</span></header>
+            <h3>Animación con intención</h3>
+            <ul class="chips">
+              <li>GSAP</li><li>ScrollTrigger</li><li>WebGL</li><li>Shaders GLSL</li><li>Lenis</li>
+            </ul>
+          </article>
+          <article class="tcard">
+            <header><span class="mono">04 · Herramientas</span><span class="tcard__ico">◓</span></header>
+            <h3>El taller del laboratorio</h3>
+            <ul class="chips">
+              <li>Git</li><li>GitHub</li><li>VS Code</li><li>Chrome DevTools</li><li>Figma</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__row">
+          <div class="marquee__track">
+            <span>HTML</span><i>✦</i><span>CSS</span><i>✦</i><span class="o">JavaScript</span><i>✦</i><span>Java</span><i>✦</i><span class="o">WebGL</span><i>✦</i><span>GSAP</span><i>✦</i><span class="o">Git</span><i>✦</i>
+          </div>
+        </div>
+        <div class="marquee__row marquee__row--rev">
+          <div class="marquee__track">
+            <span class="o">Diseño</span><i>●</i><span>Animación</span><i>●</i><span class="o">Rendimiento</span><i>●</i><span>Accesibilidad</span><i>●</i><span class="o">Detalle</span><i>●</i><span>Curiosidad</span><i>●</i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="projects" id="projects" data-section="03" data-scale="1 : 1">
+      <div class="projects__pin">
+        <div class="projects__intro">
+          <div class="section-head section-head--stack">
+            <span class="section-head__num mono">03</span>
+            <h2 class="section-head__title"><span class="split" data-split>Proyectos</span></h2>
+          </div>
+          <p class="projects__lead">Experimentos que empezaron diminutos.<br>Arrastra el scroll para recorrerlos <span class="mono">→</span></p>
+        </div>
+
+        <div class="projects__track">
+          <!-- Para añadir un proyecto: duplica un <article class="pcard"> y cambia textos, tags, colores (--a / --b) y enlace -->
+          <article class="pcard" style="--a:#ff2a3d; --b:#6a0d18;">
+            <a href="https://github.com/diddiersantiago/ANTMANWEB" target="_blank" rel="noopener" class="pcard__link" data-cursor="Abrir ↗">
+              <div class="pcard__art">
+                <div class="pcard__art-grid"></div>
+                <img src="assets/img/antman.webp" alt="" class="pcard__art-img" loading="lazy">
+                <span class="pcard__num">01</span>
+              </div>
+              <div class="pcard__body">
+                <div class="pcard__top mono"><span>Portafolio · 2026</span><span>↗</span></div>
+                <h3>ANTMANWEB</h3>
+                <p>Mi web personal: un viaje de escala inspirado en Ant-Man con WebGL hecho a mano, scroll cinematográfico y micro-interacciones.</p>
+                <ul class="chips chips--sm"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>GSAP</li><li>WebGL</li></ul>
+              </div>
+            </a>
+          </article>
+
+          <article class="pcard" style="--a:#3df2ff; --b:#0b3b52;">
+            <a href="https://github.com/diddiersantiago/ANTMANWEB/blob/master/assets/js/quantum.js" target="_blank" rel="noopener" class="pcard__link" data-cursor="Código ↗">
+              <div class="pcard__art pcard__art--particles">
+                <div class="pcard__art-grid"></div>
+                <div class="pcard__vortex"><i></i><i></i><i></i><i></i></div>
+                <span class="pcard__num">02</span>
+              </div>
+              <div class="pcard__body">
+                <div class="pcard__top mono"><span>Motor gráfico · WebGL</span><span>↗</span></div>
+                <h3>Quantum Field</h3>
+                <p>Un campo de miles de partículas renderizado con shaders GLSL propios, sin librerías 3D: reacciona al ratón y al scroll en tiempo real.</p>
+                <ul class="chips chips--sm"><li>WebGL</li><li>GLSL</li><li>JavaScript</li></ul>
+              </div>
+            </a>
+          </article>
+
+          <article class="pcard" style="--a:#ffb84d; --b:#5a3008;">
+            <a href="https://github.com/diddiersantiago" target="_blank" rel="noopener" class="pcard__link" data-cursor="GitHub ↗">
+              <div class="pcard__art pcard__art--code">
+                <div class="pcard__art-grid"></div>
+                <pre class="pcard__code mono" aria-hidden="true"><b>public class</b> Hormiga {
+  <b>int</b> fuerza = <i>50</i>;
+  <b>void</b> levantar(<b>int</b> peso) {
+    <b>if</b> (peso &lt;= fuerza * <i>50</i>)
+      System.out.println(<s>"¡Hecho!"</s>);
+  }
+}</pre>
+                <span class="pcard__num">03</span>
+              </div>
+              <div class="pcard__body">
+                <div class="pcard__top mono"><span>Lógica · Java</span><span>↗</span></div>
+                <h3>Java Lab</h3>
+                <p>Mi laboratorio de lógica: ejercicios y aplicaciones en Java para dominar POO, algoritmos y estructuras de datos.</p>
+                <ul class="chips chips--sm"><li>Java</li><li>POO</li><li>Algoritmos</li></ul>
+              </div>
+            </a>
+          </article>
+
+          <article class="pcard pcard--cta" style="--a:#f2ede4; --b:#2a2730;">
+            <a href="#contact" class="pcard__link" data-cursor="Hablemos">
+              <div class="pcard__art pcard__art--cta">
+                <span class="pcard__plus">+</span>
+                <span class="pcard__num">04</span>
+              </div>
+              <div class="pcard__body">
+                <div class="pcard__top mono"><span>Próximamente</span><span>→</span></div>
+                <h3>Tu proyecto</h3>
+                <p>El siguiente experimento podría ser el tuyo. ¿Tienes una idea diminuta? Hagámosla gigante.</p>
+                <ul class="chips chips--sm"><li>Idea</li><li>Diseño</li><li>Código</li></ul>
+              </div>
+            </a>
+          </article>
+        </div>
+
+        <div class="projects__bar"><span></span></div>
+      </div>
+    </section>
+
+    <!-- ============ JOURNEY ============ -->
+    <section class="journey" id="journey" data-section="04" data-scale="1 : 1">
+      <div class="section-head">
+        <span class="section-head__num mono">04</span>
+        <h2 class="section-head__title"><span class="split" data-split>Trayecto</span></h2>
+        <span class="section-head__line"></span>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline__line"><span></span></div>
+        <article class="tl-item">
+          <span class="tl-item__dot"></span>
+          <span class="tl-item__when mono">Fase 01 · El origen</span>
+          <h3>Primer “Hola mundo”</h3>
+          <p>La curiosidad gana. Descubro que puedo darle instrucciones a una máquina y que ella responde. No hay vuelta atrás.</p>
+        </article>
+        <article class="tl-item">
+          <span class="tl-item__dot"></span>
+          <span class="tl-item__when mono">Fase 02 · La web</span>
+          <h3>HTML, CSS y ANTMANWEB v1</h3>
+          <p>Construyo mi primera página personal inspirada en Ant-Man. Aprendo maquetación, Flexbox, media queries y mis primeras animaciones.</p>
+        </article>
+        <article class="tl-item">
+          <span class="tl-item__dot"></span>
+          <span class="tl-item__when mono">Fase 03 · La lógica</span>
+          <h3>Java y programación orientada a objetos</h3>
+          <p>Clases, objetos, herencia y algoritmos. Entiendo que programar es, sobre todo, aprender a pensar.</p>
+        </article>
+        <article class="tl-item">
+          <span class="tl-item__dot"></span>
+          <span class="tl-item__when mono">Fase 04 · Hoy · 2026</span>
+          <h3>ANTMANWEB v2 — escala cuántica</h3>
+          <p>JavaScript avanzado, GSAP, WebGL y shaders. Llevo mi web personal a otro nivel y sigo creciendo, proyecto a proyecto.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="contact" id="contact" data-section="05" data-scale="∞">
+      <p class="eyebrow mono">// 05 — Contacto</p>
+      <h2 class="contact__title">
+        <span class="contact__row"><span class="split" data-split>¿Hacemos algo</span></span>
+        <span class="contact__row contact__row--outline"><span class="split" data-split>gigante?</span></span>
+      </h2>
+
+      <a href="https://wa.me/message/BD5R7SAAQSZ6E1" target="_blank" rel="noopener" class="contact__orb magnetic" data-cursor="WhatsApp">
+        <span class="contact__orb-inner">
+          <span class="mono">Escríbeme</span>
+          <b>¡Hablemos!</b>
+        </span>
+      </a>
+
+      <ul class="socials">
+        <li><a href="https://github.com/diddiersantiago" target="_blank" rel="noopener" class="social magnetic" data-cursor="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+          <span>GitHub</span></a></li>
+        <li><a href="https://www.instagram.com/diddiersantiago/" target="_blank" rel="noopener" class="social magnetic" data-cursor="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.58 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16Zm0 3.68a6.12 6.12 0 1 0 0 12.24 6.12 6.12 0 0 0 0-12.24Zm0 10.1a3.98 3.98 0 1 1 0-7.96 3.98 3.98 0 0 1 0 7.96Zm6.4-11.8a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg>
+          <span>Instagram</span></a></li>
+        <li><a href="https://www.facebook.com/diddier.santiago/" target="_blank" rel="noopener" class="social magnetic" data-cursor="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07Z"/></svg>
+          <span>Facebook</span></a></li>
+        <li><a href="https://wa.me/message/BD5R7SAAQSZ6E1" target="_blank" rel="noopener" class="social magnetic" data-cursor="WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.27-.2-.57-.35ZM12.04 21.8h-.01a9.8 9.8 0 0 1-5-1.37l-.36-.21-3.72.97 1-3.62-.24-.37a9.8 9.8 0 1 1 8.33 4.6Zm8.34-18.13A11.73 11.73 0 0 0 12.04.2 11.8 11.8 0 0 0 1.82 17.9L.15 24l6.24-1.64a11.78 11.78 0 0 0 5.64 1.44h.01c6.5 0 11.8-5.3 11.8-11.8 0-3.15-1.23-6.11-3.46-8.34Z"/></svg>
+          <span>WhatsApp</span></a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__big" aria-hidden="true">ANTMANWEB</div>
+    <div class="footer__row mono">
+      <span>© <span data-year>2026</span> Diddier Santiago Contreras</span>
+      <span>Hecho a mano · escala cuántica</span>
+      <a href="#top" class="footer__top" data-cursor="Crecer">Volver a tamaño real ↑</a>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="assets/vendor/lenis.min.js" defer></script>
+  <script src="assets/js/quantum.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>
