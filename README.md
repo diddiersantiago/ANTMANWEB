@@ -1,40 +1,74 @@
 # ANTMANWEB
 
-Portafolio personal de **Diddier Santiago Contreras** — un viaje de escala inspirado en Ant-Man: del tamaño real al Reino Cuántico.
+Portafolio personal de **Diddier Santiago** — desarrollo web, agentes de IA y audiovisual.
 
-## Qué incluye
+> Las grandes ideas empiezan siendo diminutas.
 
-- **Quantum Field**: un túnel de miles de partículas en WebGL con shaders GLSL escritos a mano (`assets/js/quantum.js`), que reacciona al ratón, a la velocidad del scroll y a cada sección.
-- **Intro con loader** cinematográfico y títulos que aparecen letra por letra.
-- **Scale Dive**: una sección fija en la que el scroll te lleva de 1 m a la escala de Planck.
-- **HUD** con la escala actual, el progreso y la sección.
-- Scroll suave (Lenis), coreografía con GSAP + ScrollTrigger, proyectos con scroll horizontal, tarjetas 3D con tilt, botones magnéticos, cursor personalizado, marquee con inercia y texto scramble.
-- **Proyectos reales** con vista previa en vídeo al pasar el ratón: Luisa (agente IA + CRM), AURELIA (showroom 3D), Épiko Torre 2, Edificio Praga, San Pablo, BenStar y JPME, más un **Laboratorio** con bots, herramientas y experimentos.
-- Easter egg: haz clic en Ant-Man o pulsa **Q** para encoger toda la web.
-- Responsive, sin dependencias de build y con soporte para `prefers-reduced-motion`.
+🔗 **[antmanweb.vercel.app](https://antmanweb.vercel.app)**
+
+---
+
+## Qué es
+
+Un sitio de una sola página, sin frameworks ni proceso de compilación: HTML, CSS y
+JavaScript a pelo. La idea es un viaje de escala inspirado en Ant-Man — de un humano
+al Reino Cuántico — que sirve de hilo entre las secciones.
+
+Secciones: inicio · manifiesto · viaje de escala · sobre mí · stack · proyectos ·
+audiovisual · trayecto · contacto.
+
+## Cómo está hecho
+
+| Pieza | Con qué |
+|---|---|
+| Fondo de partículas | WebGL y shaders GLSL escritos a mano, sin librerías 3D |
+| Animación por scroll | GSAP + ScrollTrigger |
+| Scroll suave | Lenis |
+| Tipografías | Syne, Inter y JetBrains Mono (Google Fonts) |
+| Vídeos de las tarjetas | MP4 H.264, `preload="none"`, arrancan al pasar el cursor |
+
+Sin dependencias instaladas: las tres librerías van versionadas en `assets/vendor/`.
+
+## Accesibilidad y rendimiento
+
+- Respeta `prefers-reduced-motion`: sin partículas, sin scroll suave y el viaje de
+  escala se vuelve una lista vertical.
+- Funciona sin JavaScript (`html.no-js`).
+- Imágenes en WebP con alternativa JPG, y `width`/`height` en todas para que no
+  salte la maqueta.
+
+## Correr en local
+
+No necesita instalar nada, solo un servidor estático:
+
+```bash
+python -m http.server 4178
+```
+
+Y abrir <http://localhost:4178>.
 
 ## Estructura
 
 ```
-index.html            → contenido (textos, proyectos, enlaces)
-assets/css/main.css   → estilos y diseño
-assets/js/main.js     → animaciones e interacciones
-assets/js/quantum.js  → motor de partículas WebGL
-assets/vendor/        → GSAP, ScrollTrigger y Lenis (copias locales)
-assets/img/           → imágenes (assets/img/work: miniaturas de proyectos)
-assets/video/         → vistas previas de proyectos (WebM + MP4)
+index.html              la página entera
+assets/css/main.css     estilos
+assets/js/main.js       scroll, menú, cursor, animaciones
+assets/js/quantum.js    campo de partículas WebGL
+assets/vendor/          gsap, ScrollTrigger, lenis
+assets/img/             fotos, mascota, iconos y tarjeta para compartir
+assets/video/           vistas previas de proyectos y piezas audiovisuales
+tools/generar-og.py     regenera assets/img/og.png (tarjeta de Open Graph)
 ```
 
-## Editar contenido
+## Cómo añadir cosas
 
-Todo el texto está en `index.html`. Para añadir un proyecto, duplica un bloque `<article class="pcard">` en la sección de proyectos y cambia el título, la descripción, los datos, los tags, el enlace, los colores (`--a` y `--b`) y la imagen/vídeo. Los proyectos privados usan `<div class="pcard__link">` en lugar de `<a>`.
+- **Un proyecto:** duplica un `<article class="pcard">` y cambia textos, cifras,
+  etiquetas, colores (`--a` / `--b`), imagen o vídeo y enlace. Los proyectos sin web
+  pública usan `<div class="pcard__link">` en lugar de `<a>`.
+- **Una pieza audiovisual:** duplica un `<article class="avcard">`. La miniatura va en
+  9:16 (540×960 WebP) y el bucle en MP4 de ~6 s sin audio.
+- **La tarjeta al compartir:** `python tools/generar-og.py`.
 
-El **átomo del stack** se genera solo a partir de las tarjetas de la sección Stack: añade o cambia un `<li>` en sus `chips` (las 4 primeras de cada tarjeta orbitan) y el color de la categoría con `--c`.
+---
 
-## Verla en local
-
-Es una web estática: abre `index.html` o sirve la carpeta, por ejemplo:
-
-```bash
-python3 -m http.server 8000
-```
+© Diddier Santiago

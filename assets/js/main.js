@@ -168,8 +168,8 @@
     window.addEventListener('resize', place);
   })();
 
-  /* ---------- Vista previa en vídeo de los proyectos ---------- */
-  $$('.pcard__art--media').forEach(art => {
+  /* ---------- Vista previa en vídeo de los proyectos y del audiovisual ---------- */
+  $$('.pcard__art--media, .avcard__art').forEach(art => {
     const video = $('video', art);
     if (!video) return;
     const play = () => {
@@ -178,7 +178,7 @@
     };
     const stop = () => { video.pause(); art.classList.remove('is-playing'); };
     if (finePointer) {
-      const card = art.closest('.pcard__link');
+      const card = art.closest('.pcard__link, .avcard');
       card.addEventListener('pointerenter', play);
       card.addEventListener('pointerleave', stop);
     } else if (!reduced && 'IntersectionObserver' in window) {
@@ -251,8 +251,24 @@
     const dot = $('.cursor__dot', cursor), ring = $('.cursor__ring', cursor), label = $('.cursor__label', cursor);
     const dx = gsap.quickTo(dot, 'x', { duration: .08 }), dy = gsap.quickTo(dot, 'y', { duration: .08 });
     const rx = gsap.quickTo(ring, 'x', { duration: .45, ease: 'power3' }), ry = gsap.quickTo(ring, 'y', { duration: .45, ease: 'power3' });
-    gsap.set([dot, ring], { x: innerWidth / 2, y: innerHeight / 2 });
-    window.addEventListener('pointermove', e => { dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY); }, { passive: true });
+
+    /* Estela: cada partícula va un poco más atrás y un poco más pequeña que
+       la anterior, como si se fueran encogiendo al quedarse rezagadas. */
+    const estela = $$('.cursor__trail i', cursor).map((el, i) => {
+      const retraso = .12 + i * .07;
+      gsap.set(el, { scale: 1 - i * .13, opacity: .5 - i * .07 });
+      return {
+        x: gsap.quickTo(el, 'x', { duration: retraso, ease: 'power2' }),
+        y: gsap.quickTo(el, 'y', { duration: retraso, ease: 'power2' })
+      };
+    });
+
+    gsap.set([dot, ring, ...$$('.cursor__trail i', cursor)], { x: innerWidth / 2, y: innerHeight / 2 });
+    window.addEventListener('pointermove', e => {
+      dx(e.clientX); dy(e.clientY);
+      rx(e.clientX); ry(e.clientY);
+      for (const p of estela) { p.x(e.clientX); p.y(e.clientY); }
+    }, { passive: true });
     window.addEventListener('pointerdown', () => cursor.classList.add('is-down'));
     window.addEventListener('pointerup', () => cursor.classList.remove('is-down'));
     document.addEventListener('pointerleave', () => gsap.to(cursor, { opacity: 0, duration: .3 }));
@@ -524,10 +540,29 @@
   layers.forEach((layer, i) => {
     const at = i * seg;
     const last = i === layers.length - 1;
-    if (i === 0) diveTl.fromTo(layer, { scale: .7, opacity: .25 }, { scale: 1, opacity: 1, duration: seg * .3 }, 0);
-    else diveTl.fromTo(layer, { scale: .12, opacity: 0 }, { scale: 1, opacity: 1, duration: seg * .45 }, at);
-    if (!last) diveTl.to(layer, { scale: 7, opacity: 0, duration: seg * .55, ease: 'power1.in' }, at + seg * .5);
-    else diveTl.to(layer, { scale: 1.08, duration: seg * .55 }, at + seg * .45);
+
+    /* Entrada: la frase llega casi a su tamaño y se enciende rápido, para que
+       se lea desde el primer momento en vez de quedarse pequeña y apagada. */
+    if (i === 0) {
+      diveTl.fromTo(layer,
+        { scale: .9, opacity: 0, filter: 'blur(8px)' },
+        { scale: 1, opacity: 1, filter: 'blur(0px)', duration: seg * .22, ease: 'power2.out' }, 0);
+    } else {
+      diveTl.fromTo(layer,
+        { scale: .24, opacity: 0, filter: 'blur(12px)' },
+        { scale: 1, opacity: 1, filter: 'blur(0px)', duration: seg * .36, ease: 'power2.out' }, at);
+    }
+
+    if (!last) {
+      /* Salida: crece poco (2,6x, no 7x) y se va apagando con desenfoque desde
+         que empieza a agrandarse, de modo que nunca quedan letras gigantes y
+         pixeladas tapando la pantalla. Termina justo cuando la siguiente frase
+         ya está entrando, para que no quede un hueco en negro entre las dos. */
+      diveTl.to(layer, { scale: 2.6, filter: 'blur(18px)', duration: seg * .58, ease: 'power2.in' }, at + seg * .5);
+      diveTl.to(layer, { opacity: 0, duration: seg * .46, ease: 'power2.in' }, at + seg * .62);
+    } else {
+      diveTl.to(layer, { scale: 1.08, duration: seg * .55 }, at + seg * .45);
+    }
   });
   const ringDur = layers.length * seg * .5;
   rings.forEach((r, i) => {
@@ -650,6 +685,34 @@
       onEnter: () => item.classList.add('is-on'),
       onLeaveBack: () => item.classList.remove('is-on')
     });
+  });
+
+  /* ---------- Barra de avance de la carrera ---------- */
+  $$('.progress').forEach(box => {
+    const pct = Math.max(0, Math.min(100, parseFloat(box.dataset.progress) || 0));
+    const fill = $('.progress__fill', box);
+    const num = $('[data-progress-num]', box);
+    const track = $('.progress__track', box);
+    const contador = { v: 0 };
+
+    const medir = () => box.style.setProperty('--sweep', `${track.getBoundingClientRect().width * (pct / 100) + 10}px`);
+    medir();
+    window.addEventListener('resize', medir);
+
+    // Con movimiento reducido no se anima: se deja puesta y ya.
+    if (reduced) {
+      gsap.set(fill, { scaleX: pct / 100 });
+      if (num) num.textContent = Math.round(pct);
+      return;
+    }
+
+    gsap.timeline({ scrollTrigger: { trigger: box, start: 'top 85%' } })
+      .to(fill, { scaleX: pct / 100, duration: 1.6, ease: 'expo.out' })
+      .to(contador, {
+        v: pct, duration: 1.6, ease: 'expo.out',
+        onUpdate: () => { if (num) num.textContent = Math.round(contador.v); }
+      }, '<')
+      .add(() => box.classList.add('is-on'), '-=.3');
   });
 
   /* =========================================================

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://antmanweb.vercel.app/sitemap.xml

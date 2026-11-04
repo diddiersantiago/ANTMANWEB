@@ -4,12 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diddier Santiago — Desarrollador Web · ANTMANWEB</title>
-  <meta name="description" content="Portafolio de Diddier Santiago Contreras: desarrollador web y de agentes de IA. Showrooms 3D, webs inmobiliarias y bots de WhatsApp con Claude.">
+  <meta name="description" content="Portafolio de Diddier Santiago: desarrollador web, de agentes de IA y editor audiovisual. Showrooms 3D, webs inmobiliarias, bots de WhatsApp y motion graphics escritos en código.">
+  <meta name="author" content="Diddier Santiago">
   <meta name="theme-color" content="#060509">
-  <meta property="og:title" content="Diddier Santiago — ANTMANWEB">
-  <meta property="og:description" content="Las grandes ideas empiezan siendo diminutas. Portafolio de desarrollo web.">
-  <meta property="og:image" content="assets/img/antman.png">
+  <link rel="canonical" href="https://antmanweb.vercel.app/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://antmanweb.vercel.app/">
+  <meta property="og:site_name" content="ANTMANWEB">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Diddier Santiago — Desarrollador web, agentes de IA y audiovisual">
+  <meta property="og:description" content="Las grandes ideas empiezan siendo diminutas. Showrooms 3D, webs inmobiliarias, bots de WhatsApp y motion graphics.">
+  <meta property="og:image" content="https://antmanweb.vercel.app/assets/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diddier Santiago — desarrollador web, agentes de IA y audiovisual">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Diddier Santiago — Desarrollador web, agentes de IA y audiovisual">
+  <meta name="twitter:description" content="Las grandes ideas empiezan siendo diminutas. Showrooms 3D, webs inmobiliarias, bots de WhatsApp y motion graphics.">
+  <meta name="twitter:image" content="https://antmanweb.vercel.app/assets/img/og.png">
+
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/icon-192.png">
+  <link rel="manifest" href="site.webmanifest">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +35,53 @@
 
   <link rel="stylesheet" href="assets/css/main.css">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://antmanweb.vercel.app/#diddier",
+        "name": "Diddier Santiago",
+        "url": "https://antmanweb.vercel.app/",
+        "image": "https://antmanweb.vercel.app/assets/img/diddier.jpg",
+        "jobTitle": "Desarrollador web y de agentes de IA",
+        "description": "Desarrollador web y de agentes de IA. Construye showrooms 3D en el navegador, sitios inmobiliarios, bots de venta por WhatsApp y piezas audiovisuales con motion graphics escritos en código.",
+        "address": { "@type": "PostalAddress", "addressCountry": "CO" },
+        "knowsLanguage": ["es", "en"],
+        "knowsAbout": [
+          "Desarrollo web", "React", "Next.js", "TypeScript", "Three.js", "WebGL",
+          "Python", "FastAPI", "Node.js", "PostgreSQL",
+          "Agentes de IA", "Claude API", "WhatsApp Cloud API",
+          "Blender", "Motion graphics", "DaVinci Resolve", "Edición de video",
+          "GSAP", "Meta Ads", "Pauta digital", "Medición y analítica"
+        ],
+        "sameAs": [
+          "https://github.com/diddiersantiago",
+          "https://www.instagram.com/diddiersantiago/",
+          "https://www.facebook.com/diddier.santiago/"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://antmanweb.vercel.app/#website",
+        "url": "https://antmanweb.vercel.app/",
+        "name": "ANTMANWEB",
+        "inLanguage": "es-CO",
+        "author": { "@id": "https://antmanweb.vercel.app/#diddier" },
+        "publisher": { "@id": "https://antmanweb.vercel.app/#diddier" }
+      },
+      {
+        "@type": "ProfilePage",
+        "url": "https://antmanweb.vercel.app/",
+        "name": "Diddier Santiago — Portafolio",
+        "isPartOf": { "@id": "https://antmanweb.vercel.app/#website" },
+        "about": { "@id": "https://antmanweb.vercel.app/#diddier" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -36,7 +101,26 @@
   <canvas class="quantum" aria-hidden="true"></canvas>
   <div class="grain" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
-  <div class="cursor" aria-hidden="true"><div class="cursor__ring"><span class="cursor__label"></span></div><div class="cursor__dot"></div></div>
+  <!-- Cursor propio: visor hexagonal con estela de partículas Pym -->
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__trail">
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+    <div class="cursor__ring">
+      <svg class="cursor__hex" viewBox="0 0 100 100" aria-hidden="true">
+        <polygon class="cursor__hex-out" points="50,4 90,27 90,73 50,96 10,73 10,27"/>
+        <polygon class="cursor__hex-in"  points="50,18 78,34 78,66 50,82 22,66 22,34"/>
+        <g class="cursor__ticks">
+          <line x1="50" y1="0"  x2="50" y2="12"/>
+          <line x1="50" y1="88" x2="50" y2="100"/>
+          <line x1="0"  y1="50" x2="12" y2="50"/>
+          <line x1="88" y1="50" x2="100" y2="50"/>
+        </g>
+      </svg>
+      <span class="cursor__label"></span>
+    </div>
+    <div class="cursor__dot"></div>
+  </div>
 
   <!-- ============ HUD ============ -->
   <div class="hud" aria-hidden="true">
@@ -45,7 +129,7 @@
       <span class="hud__v" data-hud-scale>1 m</span>
     </div>
     <div class="hud__progress"><span></span></div>
-    <div class="hud__section mono"><span data-hud-index>00</span> / 06</div>
+    <div class="hud__section mono"><span data-hud-index>00</span> / 07</div>
   </div>
 
   <!-- ============ NAV ============ -->
@@ -60,8 +144,9 @@
       <a href="#about" data-scramble><span class="mono">01</span>Sobre mí</a>
       <a href="#stack" data-scramble><span class="mono">02</span>Stack</a>
       <a href="#projects" data-scramble><span class="mono">03</span>Proyectos</a>
-      <a href="#journey" data-scramble><span class="mono">04</span>Trayecto</a>
-      <a href="#contact" data-scramble><span class="mono">05</span>Contacto</a>
+      <a href="#av" data-scramble><span class="mono">04</span>Audiovisual</a>
+      <a href="#journey" data-scramble><span class="mono">05</span>Trayecto</a>
+      <a href="#contact" data-scramble><span class="mono">06</span>Contacto</a>
     </nav>
     <div class="nav__status mono"><i></i>Disponible para proyectos</div>
     <button class="nav__burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
@@ -73,8 +158,9 @@
       <a href="#about"><span class="mono">01</span>Sobre mí</a>
       <a href="#stack"><span class="mono">02</span>Stack</a>
       <a href="#projects"><span class="mono">03</span>Proyectos</a>
-      <a href="#journey"><span class="mono">04</span>Trayecto</a>
-      <a href="#contact"><span class="mono">05</span>Contacto</a>
+      <a href="#av"><span class="mono">04</span>Audiovisual</a>
+      <a href="#journey"><span class="mono">05</span>Trayecto</a>
+      <a href="#contact"><span class="mono">06</span>Contacto</a>
     </nav>
     <p class="menu__foot mono">Diddier Santiago · ANTMANWEB</p>
   </div>
@@ -171,12 +257,12 @@
           <div class="about__photo-frame">
             <picture>
               <source srcset="assets/img/diddier.webp" type="image/webp">
-              <img src="assets/img/diddier.jpg" alt="Retrato de Diddier Santiago Contreras" width="900" height="1200" loading="lazy">
+              <img src="assets/img/diddier.jpg" alt="Retrato de Diddier Santiago" width="526" height="936" loading="lazy">
             </picture>
             <div class="about__photo-scan"></div>
           </div>
           <figcaption class="mono">
-            <span>SUJETO: D. SANTIAGO C.</span>
+            <span>SUJETO: D. SANTIAGO</span>
             <span>ESTADO: <b>COMPILANDO SUEÑOS</b></span>
           </figcaption>
           <div class="about__badge">
@@ -190,12 +276,17 @@
 
         <div class="about__content">
           <p class="about__big">
-            Soy <strong>Diddier Santiago Contreras</strong>, desarrollador web y de agentes de IA. Convierto ideas pequeñas en productos que se sienten enormes.
+            Soy <strong>Diddier Santiago</strong>, desarrollador web y de agentes de IA. Convierto ideas pequeñas en productos que se sienten enormes.
           </p>
           <p class="about__text">
             Empecé en 2021 con HTML y CSS, mucha curiosidad y cero miedo a romper cosas. Hoy construyo sitios inmobiliarios
-            con 3D y animación cinematográfica en React, Next.js y Three.js, y agentes de ventas por WhatsApp con Python, Node.js
-            y Claude que cotizan, agendan visitas y alimentan un CRM completo.
+            con 3D y animación cinematográfica en React, Next.js, Three.js y <strong>GSAP</strong>, y agentes de ventas por
+            WhatsApp con Python, Node.js y Claude que cotizan, agendan visitas y alimentan un CRM completo.
+          </p>
+          <p class="about__text">
+            También <strong>manejo la pauta en Meta</strong>: armo las campañas, les monto la medición encima y leo los
+            números para saber qué pausar y qué escalar. Eso me deja cerrar el círculo completo — el anuncio trae al
+            comprador, la web lo convence y el bot lo atiende.
           </p>
           <p class="about__text">
             Me obsesiona que cada animación, cada transición y cada píxel tenga una razón de ser, y que detrás haya
@@ -288,6 +379,14 @@
             <h3>Del laboratorio a producción</h3>
             <ul class="chips">
               <li>Git &amp; GitHub</li><li>Vercel</li><li>Railway</li><li>VS Code</li><li>Claude Code</li>
+            </ul>
+          </article>
+
+          <article class="tcard tcard--wide" style="--c:#ff7ab8;">
+            <header><span class="mono">07 · Pauta y medición</span><span class="tcard__ico">◒</span></header>
+            <h3>El anuncio que trae al comprador</h3>
+            <ul class="chips">
+              <li>Meta Ads</li><li>Administrador de anuncios</li><li>Píxel y eventos</li><li>Públicos personalizados</li><li>UTM</li><li>Informes de resultados</li>
             </ul>
           </article>
         </div>
@@ -541,17 +640,100 @@
           <div class="lcard__body">
             <span class="mono lcard__tag">Primeros pasos</span>
             <h4>Donde empezó todo</h4>
-            <p>Mis primeras prácticas: un header con parallax de montañas, una pantalla de login y el sitio de DEM, una exportadora de lámparas de sal de Zipaquirá.</p>
+            <p>Mis primeras prácticas: un header con parallax de montañas y el sitio de DEM, una exportadora de lámparas de sal de Zipaquirá.</p>
             <ul class="chips chips--sm"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- ============ JOURNEY ============ -->
-    <section class="journey" id="journey" data-section="04" data-scale="1 : 1">
+    <!-- ============ AUDIOVISUAL ============ -->
+    <section class="av" id="av" data-section="04" data-scale="24 fps">
       <div class="section-head">
         <span class="section-head__num mono">04</span>
+        <h2 class="section-head__title"><span class="split" data-split>Audiovisual</span></h2>
+        <span class="section-head__line"></span>
+      </div>
+
+      <p class="av__lead">
+        La otra mitad de lo que hago: <em>el proceso detrás</em>. Monto en DaVinci Resolve, produzco motion graphics
+        y salgo a grabar con dron. Las transiciones, los títulos y la biblioteca de sonido son míos, así que la pieza
+        sale completa y sale a tiempo.
+      </p>
+
+      <div class="av__grid">
+
+        <article class="avcard" style="--a:#3df2ff;">
+          <div class="avcard__art" data-cursor="Ver">
+            <img src="assets/img/work/av-edicion.webp" alt="Línea de tiempo de DaVinci Resolve con el montaje armado" loading="lazy" width="540" height="960">
+            <video muted loop playsinline preload="none" poster="assets/img/work/av-edicion.webp"><source src="assets/video/av-edicion.mp4" type="video/mp4"></video>
+            <span class="avcard__num mono">01</span>
+          </div>
+          <div class="avcard__body">
+            <span class="mono avcard__tag">Edición · DaVinci Resolve</span>
+            <h3>Entregado el día que toca</h3>
+            <p>Llegar con la biblioteca armada —mis transiciones, mis títulos, mis efectos— es lo que me deja cumplir la fecha en vez de pedir una semana más. Nada se improvisa a última hora y el cliente recibe la pieza cuando la necesita.</p>
+            <ul class="avcard__facts"><li><b>25</b><span>transiciones listas</span></li><li><b>12</b><span>títulos propios</span></li><li><b>856</b><span>efectos catalogados</span></li></ul>
+            <ul class="chips chips--sm"><li>DaVinci Resolve</li><li>Fusion</li><li>Fairlight</li><li>Python</li></ul>
+          </div>
+        </article>
+
+        <article class="avcard" style="--a:#ffb84d;">
+          <div class="avcard__art" data-cursor="Ver">
+            <img src="assets/img/work/av-motion.webp" alt="Motion graphic que muestra un showroom 3D pantalla por pantalla" loading="lazy" width="540" height="960">
+            <video muted loop playsinline preload="none" poster="assets/img/work/av-motion.webp"><source src="assets/video/av-motion.mp4" type="video/mp4"></video>
+            <span class="avcard__num mono">02</span>
+          </div>
+          <div class="avcard__body">
+            <span class="mono avcard__tag">Motion graphics</span>
+            <h3>Motion graphics a medida</h3>
+            <p>Gráficos animados hechos para explicar: una idea por pantalla, con el ritmo y el tono de la marca. Sirven para contar un producto que no se deja fotografiar — un showroom, un dato, un proceso — sin que el espectador se pierda.</p>
+            <ul class="avcard__facts"><li><b>4</b><span>capítulos entregados</span></li><li><b>1</b><span>idea por pantalla</span></li><li><b>MP4</b><span>listo para subir</span></li></ul>
+            <ul class="chips chips--sm"><li>Remotion</li><li>React</li><li>TypeScript</li><li>ffmpeg</li></ul>
+          </div>
+        </article>
+
+        <article class="avcard" style="--a:#3dd68c;">
+          <div class="avcard__art" data-cursor="Ver">
+            <img src="assets/img/work/av-mascaras.webp" alt="Toma aérea con dron del lote de un proyecto inmobiliario en Paipa" loading="lazy" width="540" height="960">
+            <video muted loop playsinline preload="none" poster="assets/img/work/av-mascaras.webp"><source src="assets/video/av-mascaras.mp4" type="video/mp4"></video>
+            <span class="avcard__num mono">03</span>
+          </div>
+          <div class="avcard__body">
+            <span class="mono avcard__tag">Producción · Dron y cámara</span>
+            <h3>Material propio, grabado en sitio</h3>
+            <p>Salgo a grabar en vez de tirar de banco de imágenes. El lote, la obra, la sala de ventas: lo que sale en pantalla es el proyecto de verdad, con su luz, su entorno y su gente. Después lo corrijo toma por toma.</p>
+            <ul class="avcard__facts"><li><b>Dron</b><span>material propio</span></li><li><b>0</b><span>banco de imágenes</span></li><li><b>Color</b><span>toma por toma</span></li></ul>
+            <ul class="chips chips--sm"><li>DJI</li><li>DaVinci Resolve</li><li>Color</li><li>LUT propia</li></ul>
+          </div>
+        </article>
+
+        <article class="avcard" style="--a:#ff2a3d;">
+          <div class="avcard__art" data-cursor="Ver">
+            <img src="assets/img/work/av-reelflow.webp" alt="Corrección de color de una toma aérea, con nodos, ruedas primarias y vectorscopio" loading="lazy" width="540" height="960">
+            <video muted loop playsinline preload="none" poster="assets/img/work/av-reelflow.webp"><source src="assets/video/av-reelflow.mp4" type="video/mp4"></video>
+            <span class="avcard__num mono">04</span>
+          </div>
+          <div class="avcard__body">
+            <span class="mono avcard__tag">Dirección · Del brief a la pantalla</span>
+            <h3>Fiel a lo que el cliente proyecta</h3>
+            <p>Cuando un cliente llega con una idea en la cabeza, mi trabajo es que la pieza se le parezca. Estudio el tono que quiere, el ritmo que tiene en mente y hasta dónde llega su marca, y devuelvo algo que reconoce como suyo desde el primer segundo.</p>
+            <ul class="avcard__facts"><li><b>90</b><span>movimientos ajustados</span></li><li><b>29,4 s</b><span>al segundo exacto</span></li><li><b>2</b><span>formatos a la vez</span></li></ul>
+            <ul class="chips chips--sm"><li>Dirección</li><li>Resolve</li><li>Remotion</li><li>Color</li></ul>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="av__foot mono">
+        ✦ También produzco en serie: 20 piezas distintas, cada una personalizada, salidas de una misma plantilla y renderizadas de una sola pasada.
+      </p>
+    </section>
+
+    <!-- ============ JOURNEY ============ -->
+    <section class="journey" id="journey" data-section="05" data-scale="1 : 1">
+      <div class="section-head">
+        <span class="section-head__num mono">05</span>
         <h2 class="section-head__title"><span class="split" data-split>Trayecto</span></h2>
         <span class="section-head__line"></span>
       </div>
@@ -562,7 +744,19 @@
           <span class="tl-item__dot"></span>
           <span class="tl-item__when mono">2021 · El origen</span>
           <h3>Primer “Hola mundo” y ANTMANWEB v1</h3>
-          <p>HTML y CSS a pulso: un header con parallax, una pantalla de login, el sitio de DEM y la primera versión de esta web inspirada en Ant-Man. Luego, Java y programación orientada a objetos para aprender a pensar.</p>
+          <p>HTML y CSS a pulso: un header con parallax de montañas, el sitio de DEM y la primera versión de esta web inspirada en Ant-Man. Nada sofisticado, pero ahí entendí que podía construir cosas.</p>
+        </article>
+        <article class="tl-item">
+          <span class="tl-item__dot"></span>
+          <span class="tl-item__when mono">2023 · Formación</span>
+          <h3>Autodidacta, con apoyo del MinTIC</h3>
+          <p>Me metí a aprender por mi cuenta en un programa de formación apoyado por el <strong>Ministerio TIC</strong>. <em>No alcancé a terminarlo</em>, pero de ahí salió la base con la que después me defendí solo: fundamentos de programación y la costumbre de buscar la respuesta antes de preguntarla.</p>
+        </article>
+        <article class="tl-item">
+          <span class="tl-item__dot"></span>
+          <span class="tl-item__when mono">2025 · Práctica</span>
+          <h3>Ejercicios que se volvieron oficio</h3>
+          <p>Un menú de login, interfaces sueltas, pruebas de maquetación. Piezas pequeñas hechas para entender cómo se comporta cada cosa antes de meterlas en un proyecto de verdad.</p>
         </article>
         <article class="tl-item">
           <span class="tl-item__dot"></span>
@@ -578,16 +772,34 @@
         </article>
         <article class="tl-item">
           <span class="tl-item__dot"></span>
-          <span class="tl-item__when mono">Hoy · Escala cuántica</span>
+          <span class="tl-item__when mono">2026 · Escala cuántica</span>
           <h3>PeakMind Tutor y ANTMANWEB v2</h3>
-          <p>Una extensión de VS Code que enseña a programar con IA y esta web reconstruida desde cero con WebGL y shaders propios. Sigo creciendo, proyecto a proyecto.</p>
+          <p>Una extensión de VS Code que enseña a programar con IA y esta web reconstruida desde cero con WebGL y shaders propios.</p>
+        </article>
+        <article class="tl-item tl-item--now">
+          <span class="tl-item__dot"></span>
+          <span class="tl-item__when mono">Hoy · En curso</span>
+          <h3>Ingeniería Multimedia — UNAD</h3>
+          <p>Lo que estoy cursando ahora. Cada semestre que avanzo se nota en lo que entrego: ahí es donde se juntan las dos mitades de lo que hago, el código y lo audiovisual.</p>
+
+          <div class="progress" data-progress="43" role="img" aria-label="Avance de la carrera: 43 por ciento">
+            <div class="progress__head mono">
+              <span>Avance de la carrera</span>
+              <span class="progress__pct"><b data-progress-num>43</b>%</span>
+            </div>
+            <div class="progress__track">
+              <span class="progress__fill"></span>
+              <span class="progress__glow"></span>
+            </div>
+            <div class="progress__foot mono"><span>Primer semestre</span><span>Grado</span></div>
+          </div>
         </article>
       </div>
     </section>
 
     <!-- ============ CONTACT ============ -->
-    <section class="contact" id="contact" data-section="05" data-scale="∞">
-      <p class="eyebrow mono">// 05 — Contacto</p>
+    <section class="contact" id="contact" data-section="06" data-scale="∞">
+      <p class="eyebrow mono">// 06 — Contacto</p>
       <h2 class="contact__title">
         <span class="contact__row"><span class="split" data-split>¿Hacemos algo</span></span>
         <span class="contact__row contact__row--outline"><span class="split" data-split>gigante?</span></span>
@@ -620,7 +832,7 @@
   <footer class="footer">
     <div class="footer__big" aria-hidden="true">ANTMANWEB</div>
     <div class="footer__row mono">
-      <span>© <span data-year>2026</span> Diddier Santiago Contreras</span>
+      <span>© <span data-year>2026</span> Diddier Santiago</span>
       <span>Hecho a mano · escala cuántica</span>
       <a href="#top" class="footer__top" data-cursor="Crecer">Volver a tamaño real ↑</a>
     </div>
